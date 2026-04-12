@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeverageONE GUI Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .main-window {
+            width: 600px;
+            height: 800px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 10px;
+            border: 2px solid #333;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            height: 80px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-bottom: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #00d4ff;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .c-core-status {
+            font-size: 10px;
+            color: #4CAF50;
+            margin-top: 5px;
+        }
+
+        .status-bar {
+            height: 60px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .status-item {
+            font-size: 11px;
+            color: #888;
+        }
+
+        .status-item span {
+            color: #00d4ff;
+            font-weight: bold;
+        }
+
+        .tab-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tabs {
+            display: flex;
+            background: #0f0f23;
+            border-bottom: 1px solid #333;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px;
+            background: transparent;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            color: #00d4ff;
+            border-bottom-color: #00d4ff;
+        }
+
+        .tab:hover {
+            color: #00d4ff;
+        }
+
+        .tab-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .section h3 {
+            font-size: 16px;
+            font-weight: bold;
+            color: #00d4ff;
+            margin-bottom: 15px;
+        }
+
+        .control-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .control-row:last-child {
+            border-bottom: none;
+        }
+
+        .label {
+            font-size: 12px;
+            color: #e0e0e0;
+        }
+
+        .slider-container {
+            flex: 1;
+            margin: 0 10px;
+        }
+
+        .slider {
+            width: 100%;
+            height: 6px;
+            background: #333;
+            border-radius: 3px;
+            appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #00d4ff;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .entry {
+            width: 60px;
+            padding: 5px;
+            background: #0f0f23;
+            border: 1px solid #333;
+            border-radius: 4px;
+            color: #e0e0e0;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .switch {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .switch-label {
+            font-size: 12px;
+            color: #e0e0e0;
+        }
+
+        .toggle {
+            width: 50px;
+            height: 26px;
+            background: #333;
+            border-radius: 13px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .toggle.active {
+            background: #00d4ff;
+        }
+
+        .toggle::after {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle.active::after {
+            transform: translateX(24px);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            border: none;
+            border-radius: 8px;
+            color: #0f0f23;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: transform 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn.secondary {
+            background: #333;
+            color: #e0e0e0;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .loadout-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .loadout-select {
+            flex: 1;
+            padding: 8px;
+            background: #0f0f23;
+            border: 1px solid #333;
+            border-radius: 4px;
+            color: #e0e0e0;
+            font-size: 12px;
+        }
+
+        .game-status {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .game-status h3 {
+            font-size: 16px;
+            font-weight: bold;
+            color: #00d4ff;
+            margin-bottom: 10px;
+        }
+
+        .status-label {
+            font-size: 12px;
+            font-weight: bold;
+            color: #ff4444;
+            margin-bottom: 5px;
+        }
+
+        .status-label.connected {
+            color: #4CAF50;
+        }
+
+        .window-info {
+            font-size: 10px;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .small-btn {
+            padding: 8px 15px;
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            border: none;
+            border-radius: 6px;
+            color: #0f0f23;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .checkbox-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .smoothing-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .smoothing-section h3 {
+            font-size: 16px;
+            font-weight: bold;
+            color: #00d4ff;
+            margin-bottom: 15px;
+        }
+
+        .separator {
+            height: 2px;
+            background: #333;
+            margin: 15px 0;
+        }
+
+        /* Scrollbar styling */
+        .tab-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .tab-content::-webkit-scrollbar-track {
+            background: #0f0f23;
+        }
+
+        .tab-content::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        .tab-content::-webkit-scrollbar-thumb:hover {
+            background: #00d4ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-window">
+        <!-- Header -->
+        <div class="header">
+            <h1>LeverageONE</h1>
+            <p>Professional Mouse Recoil System</p>
+            <div class="c-core-status">C Core: Loaded</div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-item">Status: <span>DISABLED</span></div>
+            <div class="status-item">Mode: <span>SMG</span></div>
+            <div class="status-item">RRC: <span>OFF</span></div>
+            <div class="status-item">FPS: <span>0 | Lat: 0ms</span></div>
+        </div>
+
+        <!-- Tab Container -->
+        <div class="tab-container">
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab active" data-tab="leverageone">LeverageONE</button>
+                <button class="tab" data-tab="finals">FINALs</button>
+                <button class="tab" data-tab="thefinals">THE FINALS</button>
+            </div>
+
+            <!-- LeverageONE Tab Content -->
+            <div class="tab-content active" id="leverageone">
+                <!-- Recoil Tuning -->
+                <div class="section">
+                    <h3>Recoil Tuning</h3>
+                    <div class="control-row">
+                        <span class="label">X Control</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="0" max="20" value="0">
+                        </div>
+                        <input type="text" class="entry" value="0">
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Y Control</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="0" max="50" value="8">
+                        </div>
+                        <input type="text" class="entry" value="8">
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Delay (ms)</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="1" max="20" value="7">
+                        </div>
+                        <input type="text" class="entry" value="7">
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Horizontal Modifier</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="-10" max="10" value="0">
+                        </div>
+                        <input type="text" class="entry" value="0">
+                    </div>
+                </div>
+
+                <!-- Weapon Mode -->
+                <div class="section">
+                    <h3>Weapon Mode</h3>
+                    <div class="switch">
+                        <span class="switch-label">SMG Mode</span>
+                        <div class="toggle active"></div>
+                    </div>
+                    <div class="control-row" style="margin-top: 15px;">
+                        <span class="label">SMG Y</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="0" max="50" value="14">
+                        </div>
+                        <input type="text" class="entry" value="14">
+                    </div>
+                    <div class="control-row">
+                        <span class="label">AR Y</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="0" max="50" value="14">
+                        </div>
+                        <input type="text" class="entry" value="14">
+                    </div>
+                </div>
+
+                <!-- Rapid Fire -->
+                <div class="section">
+                    <h3>Rapid Fire</h3>
+                    <div class="switch">
+                        <span class="switch-label">Enable Rapid Fire</span>
+                        <div class="toggle active"></div>
+                    </div>
+                    <div class="control-row" style="margin-top: 15px;">
+                        <span class="label">SMG Delay (ms)</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="50" max="200" value="80">
+                        </div>
+                        <input type="text" class="entry" value="80">
+                    </div>
+                    <div class="control-row">
+                        <span class="label">AR Delay (ms)</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="50" max="200" value="110">
+                        </div>
+                        <input type="text" class="entry" value="110">
+                    </div>
+                </div>
+
+                <!-- Loadout Manager -->
+                <div class="section">
+                    <h3>Loadout Manager</h3>
+                    <div class="loadout-row">
+                        <select class="loadout-select">
+                            <option>Select Loadout...</option>
+                        </select>
+                    </div>
+                    <div class="loadout-row">
+                        <input type="text" class="entry" placeholder="Loadout Name" style="flex: 1;">
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn secondary">Save</button>
+                        <button class="btn secondary">Load</button>
+                        <button class="btn secondary">Delete</button>
+                    </div>
+                </div>
+
+                <!-- Control Buttons -->
+                <div class="section">
+                    <button class="btn">ENABLE</button>
+                    <button class="btn secondary">Test Recoil</button>
+                    <button class="btn secondary">Exit</button>
+                </div>
+            </div>
+
+            <!-- FINALs Tab Content -->
+            <div class="tab-content" id="finals">
+                <!-- Main Toggles -->
+                <div class="section">
+                    <h3>FINALs Main Toggles</h3>
+                    <div class="switch">
+                        <span class="switch-label">Color Detection</span>
+                        <div class="toggle"></div>
+                    </div>
+                    <div class="switch">
+                        <span class="switch-label">Player Detection</span>
+                        <div class="toggle"></div>
+                    </div>
+                    <div class="switch">
+                        <span class="switch-label">Rapid Fire</span>
+                        <div class="toggle active"></div>
+                    </div>
+                    <div class="switch">
+                        <span class="switch-label">SMG/AR Mode</span>
+                        <div class="toggle active"></div>
+                    </div>
+                    <div class="switch">
+                        <span class="switch-label">AI Player</span>
+                        <div class="toggle"></div>
+                    </div>
+                </div>
+
+                <!-- Recoil Tuning -->
+                <div class="section">
+                    <h3>Recoil Tuning</h3>
+                    <div class="control-row">
+                        <span class="label">X Control</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="0" max="20" value="0">
+                        </div>
+                        <input type="text" class="entry" value="0">
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Y Control</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="0" max="50" value="8">
+                        </div>
+                        <input type="text" class="entry" value="8">
+                    </div>
+                </div>
+
+                <!-- Weapon Mode -->
+                <div class="section">
+                    <h3>Weapon Mode</h3>
+                    <div class="switch">
+                        <span class="switch-label">SMG Mode</span>
+                        <div class="toggle active"></div>
+                    </div>
+                </div>
+
+                <!-- Control Buttons -->
+                <div class="section">
+                    <button class="btn">ENABLE</button>
+                    <button class="btn secondary">Test Recoil</button>
+                    <button class="btn secondary">Exit</button>
+                </div>
+            </div>
+
+            <!-- THE FINALS Tab Content -->
+            <div class="tab-content" id="thefinals">
+                <!-- Game Connection Status -->
+                <div class="game-status">
+                    <h3>Game Connection Status</h3>
+                    <div class="status-label">❌ Discovery-e.exe not found — Launch The Finals first</div>
+                    <div class="window-info">Window: N/A</div>
+                    <div class="button-row">
+                        <button class="small-btn">Focus Game Window</button>
+                        <button class="small-btn">Refresh Detection</button>
+                    </div>
+                    <div class="checkbox-row">
+                        <div class="switch">
+                            <span class="switch-label" style="font-size: 10px;">Auto-Focus on Tab Switch</span>
+                            <div class="toggle active"></div>
+                        </div>
+                        <div class="switch">
+                            <span class="switch-label" style="font-size: 10px;">Only Activate When Game is Foreground</span>
+                            <div class="toggle active"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Humanized Aim Smoothing -->
+                <div class="smoothing-section">
+                    <h3>Humanized Aim Smoothing</h3>
+                    <div class="switch">
+                        <span class="switch-label">Enable Aim Smoothing</span>
+                        <div class="toggle"></div>
+                    </div>
+                    <div class="control-row" style="margin-top: 15px;">
+                        <span class="label">Smoothing Strength</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="0" max="100" value="74">
+                        </div>
+                        <input type="text" class="entry" value="74">
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Humanization</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="0" max="50" value="10">
+                        </div>
+                        <input type="text" class="entry" value="10">
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Curve Factor</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="0" max="20" value="7">
+                        </div>
+                        <input type="text" class="entry" value="7">
+                    </div>
+                </div>
+
+                <div class="separator"></div>
+
+                <!-- Recoil Tuning -->
+                <div class="section">
+                    <h3>Recoil Tuning</h3>
+                    <div class="control-row">
+                        <span class="label">X Control</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="0" max="20" value="0">
+                        </div>
+                        <input type="text" class="entry" value="0">
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Y Control</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="0" max="50" value="8">
+                        </div>
+                        <input type="text" class="entry" value="8">
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Delay (ms)</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="1" max="20" value="7">
+                        </div>
+                        <input type="text" class="entry" value="7">
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Horizontal Modifier</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="-10" max="10" value="0">
+                        </div>
+                        <input type="text" class="entry" value="0">
+                    </div>
+                </div>
+
+                <!-- Weapon Mode -->
+                <div class="section">
+                    <h3>Weapon Mode</h3>
+                    <div class="switch">
+                        <span class="switch-label">SMG Mode</span>
+                        <div class="toggle active"></div>
+                    </div>
+                </div>
+
+                <!-- Rapid Fire -->
+                <div class="section">
+                    <h3>Rapid Fire</h3>
+                    <div class="switch">
+                        <span class="switch-label">Enable Rapid Fire</span>
+                        <div class="toggle active"></div>
+                    </div>
+                </div>
+
+                <!-- Loadout Manager -->
+                <div class="section">
+                    <h3>Loadout Manager</h3>
+                    <div class="loadout-row">
+                        <select class="loadout-select">
+                            <option>Select Loadout...</option>
+                        </select>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn secondary">Save</button>
+                        <button class="btn secondary">Load</button>
+                        <button class="btn secondary">Delete</button>
+                    </div>
+                </div>
+
+                <!-- Control Buttons -->
+                <div class="section">
+                    <button class="btn">ENABLE</button>
+                    <button class="btn secondary">Test Recoil</button>
+                    <button class="btn secondary">Exit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functionality (visual only)
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                tab.classList.add('active');
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Toggle switch visual feedback (non-functional)
+        document.querySelectorAll('.toggle').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                toggle.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
