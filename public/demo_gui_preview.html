@@ -531,6 +531,122 @@
                     </div>
                 </div>
 
+                <!-- Color Detection & Body Parts -->
+                <div class="section">
+                    <h3>FINALs Color Detection & Body Parts</h3>
+                    <div class="control-row">
+                        <span class="label">Head (1)</span>
+                        <div class="toggle"></div>
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Neck (2)</span>
+                        <div class="toggle"></div>
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Spine1 (3)</span>
+                        <div class="toggle"></div>
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Spine2 (4)</span>
+                        <div class="toggle"></div>
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Spine3 (5)</span>
+                        <div class="toggle"></div>
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Pelvis (6)</span>
+                        <div class="toggle"></div>
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Left Shoulder (7)</span>
+                        <div class="toggle"></div>
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Right Shoulder (8)</span>
+                        <div class="toggle"></div>
+                    </div>
+                </div>
+
+                <!-- Player Detection -->
+                <div class="section">
+                    <h3>FINALs Player Detection</h3>
+                    <div class="control-row">
+                        <span class="label">Memory Offsets:</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="label" style="font-size: 10px;">Entity List: 0x01234567</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="label" style="font-size: 10px;">Entity Count: 0x01234568</span>
+                    </div>
+                </div>
+
+                <!-- AI Player Configuration -->
+                <div class="section">
+                    <h3>FINALs AI Player Configuration</h3>
+                    <div class="control-row">
+                        <span class="label" style="color: cyan;">AI Model: 10kFinals.onnx</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="label">FOV Size</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="50" max="400" value="253">
+                        </div>
+                        <input type="text" class="entry" value="253">
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Mouse Sensitivity</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="1" max="100" value="10">
+                        </div>
+                        <input type="text" class="entry" value="0.01">
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Mouse Jitter</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="0" max="100" value="0">
+                        </div>
+                        <input type="text" class="entry" value="0.0">
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Y Offset</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="-10" max="10" value="-2">
+                        </div>
+                        <input type="text" class="entry" value="-2.0">
+                    </div>
+                    <div class="control-row">
+                        <span class="label">X Offset</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="-10" max="10" value="0">
+                        </div>
+                        <input type="text" class="entry" value="0.0">
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Trigger Delay</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="0" max="100" value="8">
+                        </div>
+                        <input type="text" class="entry" value="0.08">
+                    </div>
+                    <div class="control-row">
+                        <span class="label">AI Min Confidence</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="0" max="100" value="100">
+                        </div>
+                        <input type="text" class="entry" value="1.0">
+                    </div>
+                    <div class="switch">
+                        <span class="switch-label">TopMost Window</span>
+                        <div class="toggle active"></div>
+                    </div>
+                    <div class="switch">
+                        <span class="switch-label">Background Mode</span>
+                        <div class="toggle"></div>
+                    </div>
+                </div>
+
                 <!-- Recoil Tuning -->
                 <div class="section">
                     <h3>Recoil Tuning</h3>
@@ -559,6 +675,34 @@
                     </div>
                 </div>
 
+                <!-- Rapid Fire -->
+                <div class="section">
+                    <h3>Rapid Fire</h3>
+                    <div class="switch">
+                        <span class="switch-label">Enable Rapid Fire</span>
+                        <div class="toggle active"></div>
+                    </div>
+                    <div class="switch">
+                        <span class="switch-label">Rapid Right Click</span>
+                        <div class="toggle"></div>
+                    </div>
+                </div>
+
+                <!-- Loadout Manager -->
+                <div class="section">
+                    <h3>Loadout Manager</h3>
+                    <div class="loadout-row">
+                        <select class="loadout-select">
+                            <option>Select Loadout...</option>
+                        </select>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn secondary">Save</button>
+                        <button class="btn secondary">Load</button>
+                        <button class="btn secondary">Delete</button>
+                    </div>
+                </div>
+
                 <!-- Control Buttons -->
                 <div class="section">
                     <button class="btn">ENABLE</button>
@@ -572,7 +716,7 @@
                 <!-- Game Connection Status -->
                 <div class="game-status">
                     <h3>Game Connection Status</h3>
-                    <div class="status-label">❌ Discovery-e.exe not found — Launch The Finals first</div>
+                    <div class="status-label">❌ Discovery-e.exe / Discovery-d.exe not found — Launch The Finals first</div>
                     <div class="window-info">Window: N/A</div>
                     <div class="button-row">
                         <button class="small-btn">Focus Game Window</button>
