@@ -10,7 +10,9 @@ from urllib.parse import urlparse, parse_qs
 # Configuration
 BANNED_USER_ID = 188637276803301376
 BANNED_USER_IDS = [188637276803301376, 970868561956442142, 665395008429621288, 471795129867567134, 715242202476839075, 630149736334360591, 659842257561583622]
-ALLOWED_DISCORD_IDS = [
+
+# Initial allowed IDs (will be loaded from file if exists)
+INITIAL_ALLOWED_IDS = [
     215279117111656448,
     304789212224552972,
     892435951341695007,
@@ -21,6 +23,34 @@ ALLOWED_DISCORD_IDS = [
     1368087024401252393,  # Owner
     219570005744812033
 ]
+
+ALLOWED_DISCORD_IDS_FILE = "allowed_discord_ids.json"
+
+def load_allowed_ids():
+    """Load allowed IDs from file"""
+    try:
+        with open(ALLOWED_DISCORD_IDS_FILE, 'r') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        # Create file with initial IDs
+        with open(ALLOWED_DISCORD_IDS_FILE, 'w') as f:
+            json.dump(INITIAL_ALLOWED_IDS, f)
+        return INITIAL_ALLOWED_IDS.copy()
+    except Exception as e:
+        print(f"Error loading allowed IDs: {e}")
+        return INITIAL_ALLOWED_IDS.copy()
+
+def save_allowed_ids():
+    """Save allowed IDs to file"""
+    try:
+        with open(ALLOWED_DISCORD_IDS_FILE, 'w') as f:
+            json.dump(ALLOWED_DISCORD_IDS, f)
+        print(f"Saved {len(ALLOWED_DISCORD_IDS)} allowed IDs to file")
+    except Exception as e:
+        print(f"Error saving allowed IDs: {e}")
+
+ALLOWED_DISCORD_IDS = load_allowed_ids()
+print(f"Loaded {len(ALLOWED_DISCORD_IDS)} allowed IDs from file")
 
 ACCESS_ROLE_ID = 1496480556827938937
 OWNER_ROLE_ID = 1496480219476004994
@@ -67,13 +97,44 @@ async def on_ready():
 
 @bot.event
 async def on_member_join(member):
-    """Auto-ban if user is on banned list"""
+    """Auto-ban if user is on banned list, auto-add if has ACCESS role"""
+    # Check if user is banned
     if member.id in BANNED_USER_IDS:
         try:
             await member.guild.ban(member, reason="Banned from system")
             print(f"Auto-banned user {member.id} on join")
         except Exception as e:
             print(f"Error auto-banning user: {e}")
+        return
+    
+    # Check if user has ACCESS role and add to allowed list
+    access_role = member.guild.get_role(ACCESS_ROLE_ID)
+    if access_role and access_role in member.roles:
+        if member.id not in ALLOWED_DISCORD_IDS:
+            ALLOWED_DISCORD_IDS.append(member.id)
+            save_allowed_ids()
+            print(f"Auto-added user {member.id} to allowed list on join (has ACCESS role)")
+
+@bot.event
+async def on_member_update(before, after):
+    """Handle role changes - auto-add if user gets ACCESS role"""
+    # Check if roles changed
+    if len(before.roles) != len(after.roles) or set(before.roles) != set(after.roles):
+        access_role = after.guild.get_role(ACCESS_ROLE_ID)
+        
+        # Check if user gained ACCESS role
+        if access_role and access_role in after.roles and access_role not in before.roles:
+            if after.id not in ALLOWED_DISCORD_IDS:
+                ALLOWED_DISCORD_IDS.append(after.id)
+                save_allowed_ids()
+                print(f"Auto-added user {after.id} to allowed list (gained ACCESS role)")
+        
+        # Check if user lost ACCESS role
+        elif access_role and access_role in before.roles and access_role not in after.roles:
+            if after.id in ALLOWED_DISCORD_IDS:
+                ALLOWED_DISCORD_IDS.remove(after.id)
+                save_allowed_ids()
+                print(f"Auto-removed user {after.id} from allowed list (lost ACCESS role)")
 
 @bot.command()
 async def verify(ctx):
