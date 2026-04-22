@@ -9,6 +9,7 @@ from urllib.parse import urlparse, parse_qs
 
 # Configuration
 BANNED_USER_ID = 188637276803301376
+BANNED_USER_IDS = [188637276803301376, 970868561956442142]
 ALLOWED_DISCORD_IDS = [
     215279117111656448,
     304789212224552972,
@@ -173,7 +174,7 @@ class VerificationHandler(BaseHTTPRequestHandler):
                 return
             
             # Check if user is banned
-            if discord_id_int == BANNED_USER_ID:
+            if discord_id_int in BANNED_USER_IDS:
                 self.send_response(403)
                 self.send_header('Content-Type', 'application/json')
                 self.end_headers()

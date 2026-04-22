@@ -115,7 +115,7 @@
             1368087024401252393
         ];
 
-        const BANNED_USER_ID = 188637276803301376;
+        const BANNED_USER_IDS = [188637276803301376, 970868561956442142];
 
         document.getElementById('verify-btn').addEventListener('click', async () => {
             const discordId = document.getElementById('discord-id').value.trim();
@@ -143,7 +143,7 @@
             }
 
             // Check if user is banned
-            if (discordIdNum === BANNED_USER_ID) {
+            if (BANNED_USER_IDS.includes(discordIdNum)) {
                 errorMessage.textContent = 'Access Denied: You have been banned from this service';
                 errorMessage.style.display = 'block';
                 return;
