@@ -396,6 +396,7 @@
                 <button class="tab" data-tab="finals">FINALs</button>
                 <button class="tab" data-tab="thefinals">THE FINALS</button>
                 <button class="tab" data-tab="arc">ARC</button>
+                <button class="tab" data-tab="demo">Demo</button>
             </div>
 
             <!-- LeverageONE Tab Content -->
@@ -714,129 +715,91 @@
 
             <!-- THE FINALS Tab Content -->
             <div class="tab-content" id="thefinals">
-                <!-- Game Connection Status -->
-                <div class="game-status">
-                    <h3>Game Connection Status</h3>
-                    <div class="status-label">❌ Discovery-e.exe / Discovery-d.exe not found — Launch The Finals first</div>
-                    <div class="window-info">Window: N/A</div>
-                    <div class="button-row">
-                        <button class="small-btn">Focus Game Window</button>
-                        <button class="small-btn">Refresh Detection</button>
-                    </div>
-                    <div class="checkbox-row">
-                        <div class="switch">
-                            <span class="switch-label" style="font-size: 10px;">Auto-Focus on Tab Switch</span>
-                            <div class="toggle active"></div>
-                        </div>
-                        <div class="switch">
-                            <span class="switch-label" style="font-size: 10px;">Only Activate When Game is Foreground</span>
-                            <div class="toggle active"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Humanized Aim Smoothing -->
-                <div class="smoothing-section">
-                    <h3>Humanized Aim Smoothing</h3>
-                    <div class="switch">
-                        <span class="switch-label">Enable Aim Smoothing</span>
-                        <div class="toggle"></div>
-                    </div>
-                    <div class="control-row" style="margin-top: 15px;">
-                        <span class="label">Smoothing Strength</span>
-                        <div class="slider-container">
-                            <input type="range" class="slider" min="0" max="100" value="74">
-                        </div>
-                        <input type="text" class="entry" value="74">
-                    </div>
-                    <div class="control-row">
-                        <span class="label">Humanization</span>
-                        <div class="slider-container">
-                            <input type="range" class="slider" min="0" max="50" value="10">
-                        </div>
-                        <input type="text" class="entry" value="10">
-                    </div>
-                    <div class="control-row">
-                        <span class="label">Curve Factor</span>
-                        <div class="slider-container">
-                            <input type="range" class="slider" min="0" max="20" value="7">
-                        </div>
-                        <input type="text" class="entry" value="7">
-                    </div>
-                </div>
-
-                <div class="separator"></div>
-
-                <!-- Recoil Tuning -->
+                <!-- AI Color Bot Header -->
                 <div class="section">
-                    <h3>Recoil Tuning</h3>
+                    <h3>AI Color Bot - THE FINALS</h3>
+                    <p style="font-size: 11px; color: #b0b0b0; margin-bottom: 15px;">
+                        Powered by ONNX Neural Network with GPU acceleration
+                    </p>
+                </div>
+
+                <!-- Color Bot Launcher -->
+                <div class="section">
+                    <h3>Color Bot Launcher</h3>
+                    <p style="font-size: 11px; color: #b0b0b0; margin-bottom: 15px;">
+                        Launch the AI Color Bot in a new console window
+                    </p>
+                    <button class="btn">Start main.py</button>
+                    <div class="status-label" style="margin-top: 15px;">Status: Not Running</div>
+                </div>
+
+                <!-- AI Features -->
+                <div class="section">
+                    <h3>AI Features</h3>
                     <div class="control-row">
-                        <span class="label">X Control</span>
-                        <div class="slider-container">
-                            <input type="range" class="slider" min="0" max="20" value="0">
-                        </div>
-                        <input type="text" class="entry" value="0">
+                        <span class="label" style="color: #00d4ff;">✓ ONNX Neural Network (The Finals120k.onnx)</span>
                     </div>
                     <div class="control-row">
-                        <span class="label">Y Control</span>
-                        <div class="slider-container">
-                            <input type="range" class="slider" min="0" max="50" value="8">
-                        </div>
-                        <input type="text" class="entry" value="8">
+                        <span class="label" style="color: #00d4ff;">✓ GPU-Accelerated (CUDA Supported)</span>
                     </div>
                     <div class="control-row">
-                        <span class="label">Delay (ms)</span>
-                        <div class="slider-container">
-                            <input type="range" class="slider" min="1" max="20" value="7">
-                        </div>
-                        <input type="text" class="entry" value="7">
+                        <span class="label" style="color: #00d4ff;">✓ Human-Like Aim Smoothing</span>
                     </div>
                     <div class="control-row">
-                        <span class="label">Horizontal Modifier</span>
-                        <div class="slider-container">
-                            <input type="range" class="slider" min="-10" max="10" value="0">
-                        </div>
-                        <input type="text" class="entry" value="0">
+                        <span class="label" style="color: #00d4ff;">✓ Target Locking with Velocity Prediction</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="label" style="color: #00d4ff;">✓ Configurable Sensitivity & Confidence</span>
                     </div>
                 </div>
 
-                <!-- Weapon Mode -->
+                <!-- Usage Instructions -->
                 <div class="section">
-                    <h3>Weapon Mode</h3>
-                    <div class="switch">
-                        <span class="switch-label">SMG Mode</span>
-                        <div class="toggle active"></div>
+                    <h3>How to Use</h3>
+                    <div class="control-row">
+                        <span class="label">1. Click "Start main.py" to launch the Color Bot</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="label">2. The bot opens in a new console window</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="label">3. Use F1 to toggle the aimbot on/off</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="label">4. Configure settings in settings.ini</span>
                     </div>
                 </div>
 
-                <!-- Rapid Fire -->
+                <!-- Model Info -->
                 <div class="section">
-                    <h3>Rapid Fire</h3>
-                    <div class="switch">
-                        <span class="switch-label">Enable Rapid Fire</span>
-                        <div class="toggle active"></div>
+                    <h3>Model Information</h3>
+                    <div class="control-row">
+                        <span class="label">Model: The Finals120k.onnx</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Input Size: 640x640</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Confidence Threshold: 0.39</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="label">NMS Threshold: 0.20</span>
                     </div>
                 </div>
 
-                <!-- Loadout Manager -->
+                <!-- Hotkeys -->
                 <div class="section">
-                    <h3>Loadout Manager</h3>
-                    <div class="loadout-row">
-                        <select class="loadout-select">
-                            <option>Select Loadout...</option>
-                        </select>
+                    <h3>Hotkeys</h3>
+                    <div class="control-row">
+                        <span class="label">F1 - Toggle Aimbot</span>
                     </div>
-                    <div class="btn-group">
-                        <button class="btn secondary">Save</button>
-                        <button class="btn secondary">Load</button>
-                        <button class="btn secondary">Delete</button>
+                    <div class="control-row">
+                        <span class="label">Mouse Button 2 - Activate</span>
                     </div>
                 </div>
 
                 <!-- Control Buttons -->
                 <div class="section">
-                    <button class="btn">ENABLE</button>
-                    <button class="btn secondary">Test Recoil</button>
                     <button class="btn secondary">Exit</button>
                 </div>
             </div>
@@ -985,6 +948,105 @@
                     <button class="btn">ENABLE</button>
                     <button class="btn secondary">Test Recoil</button>
                     <button class="btn secondary">Exit</button>
+                </div>
+            </div>
+
+            <!-- Demo Tab Content -->
+            <div class="tab-content" id="demo">
+                <!-- Header -->
+                <div class="section">
+                    <h3>LeverageONE - Quick Start Guide</h3>
+                    <p style="font-size: 11px; color: #b0b0b0; margin-bottom: 15px;">
+                        Professional Mouse Recoil System with AI Color Bot
+                    </p>
+                </div>
+
+                <!-- Launch Instructions -->
+                <div class="section">
+                    <h3>How to Launch</h3>
+                    <div class="control-row">
+                        <span class="label">1. Double-click LeverageONE.exe to launch</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="label">2. The application opens with tabbed interface</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="label">3. Select the tab for your desired game</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="label">4. Run as Administrator for full functionality</span>
+                    </div>
+                </div>
+
+                <!-- Available Tabs -->
+                <div class="section">
+                    <h3>Available Tabs</h3>
+                    <div class="control-row">
+                        <span class="label" style="color: #00d4ff;">• LeverageONE - Main recoil system</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="label" style="color: #00d4ff;">• FINALs - Duplicate functionality</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="label" style="color: #00d4ff;">• THE FINALS - AI Color Bot (NEW)</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="label" style="color: #00d4ff;">• ARC - Game-specific optimization</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="label" style="color: #00d4ff;">• Demo - This quick start guide</span>
+                    </div>
+                </div>
+
+                <!-- AI Color Bot Info -->
+                <div class="section">
+                    <h3>AI Color Bot - THE FINALS Tab</h3>
+                    <div class="control-row">
+                        <span class="label" style="color: #00d4ff;">✓ ONNX Neural Network powered</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="label" style="color: #00d4ff;">✓ GPU-accelerated target detection</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="label" style="color: #00d4ff;">✓ Human-like aim smoothing</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="label" style="color: #00d4ff;">✓ Target locking with velocity prediction</span>
+                    </div>
+                </div>
+
+                <!-- Key Features -->
+                <div class="section">
+                    <h3>Key Features</h3>
+                    <div class="control-row">
+                        <span class="label">• Humanized aim smoothing with advanced curves</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="label">• Per-shot seeded RNG micro-randomization</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="label">• Velocity-adaptive smoothing</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="label">• Game-specific optimizations</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="label">• Rapid fire control</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="label">• Loadout manager for weapon profiles</span>
+                    </div>
+                </div>
+
+                <!-- Version Info -->
+                <div class="section">
+                    <h3>Version</h3>
+                    <div class="control-row">
+                        <span class="label">Version: 4.1</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Last Updated: April 22, 2026</span>
+                    </div>
                 </div>
             </div>
         </div>
