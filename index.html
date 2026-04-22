@@ -341,11 +341,11 @@
                 return;
             }
             
-            btn.textContent = 'Redirecting to Discord...';
+            btn.textContent = 'Redirecting...';
             btn.disabled = true;
 
-            // Redirect to Discord OAuth2 for auto-detection
-            window.location.href = 'http://localhost:5000/auth/discord';
+            // Redirect to Discord ID verification page
+            window.location.href = 'auth_discord.html';
         });
 
         // Check if user is already verified on page load
