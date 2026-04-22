@@ -102,6 +102,20 @@
 
     <script>
         const API_BASE_URL = 'http://localhost:5001';
+        
+        // Fallback allowed Discord IDs
+        const ALLOWED_DISCORD_IDS = [
+            215279117111656448,
+            304789212224552972,
+            892435951341695007,
+            782760874313515010,
+            531972745672523777,
+            764199593956737064,
+            1496480219476004994,
+            1368087024401252393
+        ];
+
+        const BANNED_USER_ID = 188637276803301376;
 
         document.getElementById('verify-btn').addEventListener('click', async () => {
             const discordId = document.getElementById('discord-id').value.trim();
@@ -128,12 +142,19 @@
                 return;
             }
 
+            // Check if user is banned
+            if (discordIdNum === BANNED_USER_ID) {
+                errorMessage.textContent = 'Access Denied: You have been banned from this service';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
             // Disable button and show loading
             btn.disabled = true;
             btn.textContent = 'Verifying...';
 
             try {
-                // Call Discord bot API to verify user
+                // Try to call Discord bot API to verify user
                 const response = await fetch(`${API_BASE_URL}/verify?discord_id=${discordId}`);
                 const data = await response.json();
 
@@ -151,17 +172,30 @@
                         window.location.href = 'index.html?auth=success';
                     }, 2000);
                 } else {
-                    errorMessage.textContent = `Access Denied: ${data.reason || 'Unable to verify access'}. Join the Discord server to get access.`;
+                    throw new Error(data.reason || 'API verification failed');
+                }
+            } catch (error) {
+                // Fallback to hardcoded list if API fails
+                console.warn('API verification failed, using fallback:', error);
+                
+                if (ALLOWED_DISCORD_IDS.includes(discordIdNum)) {
+                    successMessage.textContent = '✓ Access verified! Redirecting...';
+                    successMessage.style.display = 'block';
+
+                    // Store verification in session storage
+                    sessionStorage.setItem('discord_verified', 'true');
+                    sessionStorage.setItem('discord_id', discordId);
+
+                    // Redirect back to main page after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = 'index.html?auth=success';
+                    }, 2000);
+                } else {
+                    errorMessage.textContent = 'Access Denied: Your Discord ID is not authorized. Join the Discord server to get access.';
                     errorMessage.style.display = 'block';
                     btn.disabled = false;
                     btn.textContent = 'Verify Access';
                 }
-            } catch (error) {
-                errorMessage.textContent = 'Error: Unable to connect to verification server. Make sure the Discord bot is running.';
-                errorMessage.style.display = 'block';
-                btn.disabled = false;
-                btn.textContent = 'Verify Access';
-                console.error('Verification error:', error);
             }
         });
 
