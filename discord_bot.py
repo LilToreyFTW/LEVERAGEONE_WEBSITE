@@ -67,10 +67,10 @@ async def on_ready():
 @bot.event
 async def on_member_join(member):
     """Auto-ban if user is on banned list"""
-    if member.id == BANNED_USER_ID:
+    if member.id in BANNED_USER_IDS:
         try:
             await member.guild.ban(member, reason="Banned from system")
-            print(f"Auto-banned user {BANNED_USER_ID} on join")
+            print(f"Auto-banned user {member.id} on join")
         except Exception as e:
             print(f"Error auto-banning user: {e}")
 
