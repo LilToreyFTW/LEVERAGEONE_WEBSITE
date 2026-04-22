@@ -401,6 +401,112 @@ p {
     border-bottom: none;
 }
 
+/* Support Page */
+.support-hero {
+    text-align: center;
+    padding: 50px 20px;
+    background: linear-gradient(180deg, rgba(0, 212, 255, 0.1) 0%, transparent 100%);
+    border-radius: 20px;
+    margin-bottom: 40px;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+.support-hero h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    background: linear-gradient(90deg, #00d4ff, #00ff88);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 15px;
+}
+
+.support-subtitle {
+    font-size: 1.5rem;
+    color: #00d4ff;
+    margin-bottom: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.support-description {
+    font-size: 1.1rem;
+    color: #a0a0a0;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+.support-card.premium {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.15) 0%, rgba(0, 153, 204, 0.1) 100%);
+    border: 2px solid rgba(0, 212, 255, 0.3);
+    text-align: center;
+    padding: 40px;
+    margin-bottom: 40px;
+}
+
+.support-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.support-card h3 {
+    color: #00d4ff;
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+}
+
+.support-user {
+    margin-top: 20px;
+    color: #888;
+}
+
+.support-user strong {
+    color: #00ff88;
+}
+
+/* FAQ Section */
+.faq-section {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(0, 153, 204, 0.05) 100%);
+    border: 2px solid rgba(0, 212, 255, 0.2);
+    border-radius: 15px;
+    padding: 30px;
+    margin: 40px 0;
+}
+
+.faq-section h3 {
+    color: #00d4ff;
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.faq-item {
+    background: rgba(0, 212, 255, 0.05);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.faq-item h4 {
+    color: #00ff88;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.faq-item p {
+    color: #a0a0a0;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
 /* CTA Section */
 .cta-section {
     text-align: center;
