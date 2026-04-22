@@ -118,6 +118,23 @@
 
         const BANNED_USER_IDS = [188637276803301376, 970868561956442142, 665395008429621288, 471795129867567134, 715242202476839075, 630149736334360591, 659842257561583622];
 
+        // Webhook for logging user verification
+        const LOGIN_WEBHOOK_URL = 'https://discord.com/api/webhooks/1496506113175191603/1CfS3UsG092DjAj7dsOU0dF4YomrZpQAPcrptQ4eWXFDzK7v-2GIOPNoXRdJpaeKVZXE';
+
+        async function sendWebhook(url, data) {
+            try {
+                await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+            } catch (error) {
+                console.error('Webhook error:', error);
+            }
+        }
+
         // Check if user is banned on page load
         window.addEventListener('load', () => {
             const isBanned = sessionStorage.getItem('isBanned');
@@ -182,6 +199,20 @@
                     sessionStorage.setItem('discord_verified', 'true');
                     sessionStorage.setItem('discord_id', discordId);
                     sessionStorage.setItem('discord_username', data.username);
+
+                    // Log to webhook
+                    await sendWebhook(LOGIN_WEBHOOK_URL, {
+                        embeds: [{
+                            title: '🔐 User Verified',
+                            color: 5763719,
+                            fields: [
+                                { name: 'Discord ID', value: discordId, inline: true },
+                                { name: 'Username', value: data.username || 'Unknown', inline: true },
+                                { name: 'Timestamp', value: new Date().toISOString(), inline: true }
+                            ],
+                            footer: { text: 'LeverageONE Website' }
+                        }]
+                    });
 
                     // Redirect back to main page after 2 seconds
                     setTimeout(() => {
