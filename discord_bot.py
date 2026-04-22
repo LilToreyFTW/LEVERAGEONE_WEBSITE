@@ -3,6 +3,9 @@ from discord.ext import commands
 import asyncio
 import json
 import os
+from http.server import HTTPServer, BaseHTTPRequestHandler
+import threading
+from urllib.parse import urlparse, parse_qs
 
 # Configuration
 BANNED_USER_ID = 188637276803301376
@@ -133,5 +136,104 @@ def is_banned(user_id):
     """Check if user is banned"""
     return user_id == BANNED_USER_ID
 
+# HTTP API Server for role verification
+class VerificationHandler(BaseHTTPRequestHandler):
+    def do_OPTIONS(self):
+        self.send_response(200)
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+        self.end_headers()
+
+    def do_GET(self):
+        parsed_path = urlparse(self.path)
+        
+        # CORS headers
+        self.send_header('Access-Control-Allow-Origin', '*')
+        
+        if parsed_path.path == '/verify':
+            query = parse_qs(parsed_path.query)
+            discord_id = query.get('discord_id', [None])[0]
+            
+            if not discord_id:
+                self.send_response(400)
+                self.send_header('Content-Type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({'error': 'Missing discord_id parameter'}).encode())
+                return
+            
+            try:
+                discord_id_int = int(discord_id)
+            except ValueError:
+                self.send_response(400)
+                self.send_header('Content-Type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({'error': 'Invalid discord_id format'}).encode())
+                return
+            
+            # Check if user is banned
+            if discord_id_int == BANNED_USER_ID:
+                self.send_response(403)
+                self.send_header('Content-Type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({'access': False, 'reason': 'User is banned'}).encode())
+                return
+            
+            # Check if user is in guild and has access role
+            guild = bot.get_guild(GUILD_ID)
+            if not guild:
+                self.send_response(500)
+                self.send_header('Content-Type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({'error': 'Guild not found'}).encode())
+                return
+            
+            try:
+                member = guild.get_member(discord_id_int)
+                if not member:
+                    # User not in guild
+                    self.send_response(403)
+                    self.send_header('Content-Type', 'application/json')
+                    self.end_headers()
+                    self.wfile.write(json.dumps({'access': False, 'reason': 'User not in Discord server'}).encode())
+                    return
+                
+                # Check if user has access role
+                access_role = guild.get_role(ACCESS_ROLE_ID)
+                if access_role in member.roles:
+                    self.send_response(200)
+                    self.send_header('Content-Type', 'application/json')
+                    self.end_headers()
+                    self.wfile.write(json.dumps({'access': True, 'discord_id': str(discord_id_int), 'username': member.name}).encode())
+                else:
+                    self.send_response(403)
+                    self.send_header('Content-Type', 'application/json')
+                    self.end_headers()
+                    self.wfile.write(json.dumps({'access': False, 'reason': 'User does not have access role'}).encode())
+            except Exception as e:
+                self.send_response(500)
+                self.send_header('Content-Type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({'error': str(e)}).encode())
+        else:
+            self.send_response(404)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps({'error': 'Not found'}).encode())
+    
+    def log_message(self, format, *args):
+        # Suppress default logging
+        pass
+
+def run_http_server():
+    server = HTTPServer(('localhost', 5001), VerificationHandler)
+    print("HTTP API Server running on http://localhost:5001")
+    server.serve_forever()
+
 if __name__ == "__main__":
+    # Start HTTP server in a separate thread
+    http_thread = threading.Thread(target=run_http_server, daemon=True)
+    http_thread.start()
+    
+    # Run Discord bot
     bot.run(TOKEN)
