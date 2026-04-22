@@ -24,7 +24,7 @@ REDIRECT_URI = "https://leverageone-website.vercel.app/callback"
 DISCORD_API_URL = "https://discord.com/api/v10"
 GUILD_ID = "1496479673289543792"
 ACCESS_ROLE_ID = "1496480556827938937"
-BANNED_USER_ID = 188637276803301376
+BANNED_USER_IDS = [188637276803301376, 970868561956442142, 665395008429621288, 471795129867567134, 715242202476839075]
 
 # Discord invite link
 DISCORD_INVITE = "https://discord.gg/WandDv9Jgp"
@@ -78,13 +78,66 @@ def callback():
     user_id = user_data['id']
     
     # Check if user is banned
-    if int(user_id) == BANNED_USER_ID:
+    if int(user_id) in BANNED_USER_IDS:
         return render_template_string("""
+        <!DOCTYPE html>
         <html>
-        <head><title>Access Denied</title></head>
+        <head>
+            <title>Access Restricted</title>
+            <style>
+                body {
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+                    color: #e0e0e0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    min-height: 100vh;
+                    margin: 0;
+                    padding: 20px;
+                }
+                .container {
+                    text-align: center;
+                    max-width: 600px;
+                    padding: 40px;
+                    background: rgba(26, 26, 46, 0.8);
+                    border-radius: 20px;
+                    border: 1px solid rgba(0, 212, 255, 0.2);
+                    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.1);
+                }
+                h1 {
+                    color: #00d4ff;
+                    margin-bottom: 20px;
+                    font-size: 2.5rem;
+                }
+                p {
+                    color: #a0a0a0;
+                    line-height: 1.8;
+                    margin-bottom: 30px;
+                    font-size: 1.1rem;
+                }
+                .btn {
+                    display: inline-block;
+                    padding: 15px 40px;
+                    background: linear-gradient(135deg, #00d4ff, #0099cc);
+                    color: #0a0a0f;
+                    text-decoration: none;
+                    border-radius: 50px;
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+                }
+                .btn:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 30px rgba(0, 212, 255, 0.4);
+                }
+            </style>
+        </head>
         <body>
-            <h1>Access Denied</h1>
-            <p>You have been banned from this service.</p>
+            <div class="container">
+                <h1>Access Restricted</h1>
+                <p>We're sorry, but you don't have access to this service at this time. If you believe this is an error or would like to discuss access, please join our Discord server.</p>
+                <a href="https://discord.gg/h2efJ7mdpR" class="btn">Join Discord Server</a>
+            </div>
         </body>
         </html>
         """)

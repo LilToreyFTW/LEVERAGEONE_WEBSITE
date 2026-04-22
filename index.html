@@ -341,24 +341,23 @@
                 return;
             }
             
-            btn.textContent = 'Redirecting...';
+            btn.textContent = 'Redirecting to Discord...';
             btn.disabled = true;
 
-            // Redirect to Discord ID verification page
-            window.location.href = 'auth_discord.html';
+            // Redirect to Discord OAuth2 for auto-detection
+            window.location.href = 'http://localhost:5000/auth/discord';
         });
 
         // Check if user is already verified on page load
         window.addEventListener('load', async () => {
             const urlParams = new URLSearchParams(window.location.search);
             const authSuccess = urlParams.get('auth');
+            const authSuccessFromSession = sessionStorage.getItem('authSuccess');
             
-            // Check session storage for verification
-            const isVerified = sessionStorage.getItem('discord_verified');
-            
-            if (isVerified === 'true' || authSuccess === 'success') {
+            if (authSuccess === 'success' || authSuccessFromSession === 'success') {
                 document.getElementById('auth-section').style.display = 'none';
                 document.getElementById('download-section').style.display = 'block';
+                sessionStorage.setItem('authSuccess', 'success');
             }
         });
     </script>
