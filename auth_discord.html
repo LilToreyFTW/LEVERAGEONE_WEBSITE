@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Verification - LeverageONE</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .auth-container {
+            max-width: 500px;
+            width: 100%;
+            padding: 20px;
+        }
+        .discord-id-input {
+            width: 100%;
+            padding: 15px;
+            background: #0f0f23;
+            border: 2px solid #333;
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 16px;
+            margin-bottom: 20px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        .discord-id-input:focus {
+            border-color: #5865F2;
+        }
+        .discord-id-input::placeholder {
+            color: #666;
+        }
+        .error-message {
+            color: #ff4444;
+            font-size: 14px;
+            margin-top: 15px;
+            display: none;
+        }
+        .success-message {
+            color: #4CAF50;
+            font-size: 14px;
+            margin-top: 15px;
+            display: none;
+        }
+        .instructions {
+            background: rgba(88, 101, 242, 0.1);
+            border: 1px solid #5865F2;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .instructions h4 {
+            color: #5865F2;
+            margin-bottom: 10px;
+        }
+        .instructions ol {
+            margin-left: 20px;
+            color: #b0b0b0;
+        }
+        .instructions li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="section" style="text-align: center;">
+            <h2>Discord Verification</h2>
+            <p>Enter your Discord User ID to verify access to the download.</p>
+        </div>
+
+        <div class="instructions">
+            <h4>How to find your Discord User ID:</h4>
+            <ol>
+                <li>Open Discord Settings</li>
+                <li>Go to "Advanced" under "App Settings"</li>
+                <li>Enable "Developer Mode"</li>
+                <li>Right-click on your username in any server</li>
+                <li>Copy your User ID at the bottom</li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h3>Enter Discord User ID</h3>
+            <input type="text" id="discord-id" class="discord-id-input" placeholder="Enter your Discord User ID (e.g., 123456789012345678)">
+            <button id="verify-btn" class="btn">Verify Access</button>
+            <div id="error-message" class="error-message"></div>
+            <div id="success-message" class="success-message"></div>
+        </div>
+
+        <div class="section">
+            <p style="font-size: 12px; color: #666;">
+                Your Discord ID is only used to verify your access role in the Discord server.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Allowed Discord IDs
+        const ALLOWED_DISCORD_IDS = [
+            215279117111656448,
+            304789212224552972,
+            892435951341695007,
+            782760874313515010,
+            531972745672523777,
+            764199593956737064,
+            1496480219476004994
+        ];
+
+        const BANNED_USER_ID = 188637276803301376;
+
+        document.getElementById('verify-btn').addEventListener('click', () => {
+            const discordId = document.getElementById('discord-id').value.trim();
+            const errorMessage = document.getElementById('error-message');
+            const successMessage = document.getElementById('success-message');
+            const btn = document.getElementById('verify-btn');
+
+            // Reset messages
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+
+            // Validate input
+            if (!discordId) {
+                errorMessage.textContent = 'Please enter your Discord User ID';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            // Check if it's a valid number
+            const discordIdNum = parseInt(discordId);
+            if (isNaN(discordIdNum) || discordId.length < 17 || discordId.length > 20) {
+                errorMessage.textContent = 'Invalid Discord User ID format';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            // Check if user is banned
+            if (discordIdNum === BANNED_USER_ID) {
+                errorMessage.textContent = 'Access Denied: You have been banned from this service';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            // Check if user has access
+            if (ALLOWED_DISCORD_IDS.includes(discordIdNum)) {
+                successMessage.textContent = '✓ Access verified! Redirecting...';
+                successMessage.style.display = 'block';
+                btn.disabled = true;
+
+                // Store verification in session storage
+                sessionStorage.setItem('discord_verified', 'true');
+                sessionStorage.setItem('discord_id', discordId);
+
+                // Redirect back to main page after 2 seconds
+                setTimeout(() => {
+                    window.location.href = 'index.html?auth=success';
+                }, 2000);
+            } else {
+                errorMessage.textContent = 'Access Denied: Your Discord ID is not on the allowed list. Join the Discord server to get access.';
+                errorMessage.style.display = 'block';
+            }
+        });
+
+        // Allow Enter key to submit
+        document.getElementById('discord-id').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                document.getElementById('verify-btn').click();
+            }
+        });
+    </script>
+</body>
+</html>
