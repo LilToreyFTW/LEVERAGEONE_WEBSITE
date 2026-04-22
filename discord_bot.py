@@ -315,11 +315,6 @@ class VerificationHandler(BaseHTTPRequestHandler):
                 self.send_header('Content-Type', 'application/json')
                 self.end_headers()
                 self.wfile.write(json.dumps({'error': str(e)}).encode())
-        else:
-            self.send_response(404)
-            self.send_header('Content-Type', 'application/json')
-            self.end_headers()
-            self.wfile.write(json.dumps({'error': 'Not found'}).encode())
         
         elif parsed_path.path == '/log_download':
             query = parse_qs(parsed_path.query)
@@ -338,6 +333,11 @@ class VerificationHandler(BaseHTTPRequestHandler):
             self.send_header('Content-Type', 'application/json')
             self.end_headers()
             self.wfile.write(json.dumps({'success': True}).encode())
+        else:
+            self.send_response(404)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps({'error': 'Not found'}).encode())
     
     def log_message(self, format, *args):
         # Suppress default logging
