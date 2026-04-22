@@ -118,6 +118,18 @@
 
         const BANNED_USER_IDS = [188637276803301376, 970868561956442142, 665395008429621288, 471795129867567134, 715242202476839075];
 
+        // Check if user is banned on page load
+        window.addEventListener('load', () => {
+            const isBanned = sessionStorage.getItem('isBanned');
+            if (isBanned === 'true') {
+                document.getElementById('discord-id').disabled = true;
+                document.getElementById('verify-btn').disabled = true;
+                document.getElementById('verify-btn').textContent = 'Access Denied';
+                document.getElementById('error-message').textContent = 'You have been banned from this service and cannot access the download.';
+                document.getElementById('error-message').style.display = 'block';
+            }
+        });
+
         document.getElementById('verify-btn').addEventListener('click', async () => {
             const discordId = document.getElementById('discord-id').value.trim();
             const errorMessage = document.getElementById('error-message');
@@ -147,6 +159,9 @@
             if (BANNED_USER_IDS.includes(discordIdNum)) {
                 errorMessage.textContent = 'Access Denied: You have been banned from this service';
                 errorMessage.style.display = 'block';
+                // Store banned status in sessionStorage
+                sessionStorage.setItem('isBanned', 'true');
+                sessionStorage.setItem('bannedDiscordId', discordId);
                 return;
             }
 

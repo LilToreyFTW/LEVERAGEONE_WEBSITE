@@ -333,6 +333,14 @@
         // Discord verification
         document.getElementById('verify-btn').addEventListener('click', async () => {
             const btn = document.getElementById('verify-btn');
+            
+            // Check if user is already banned in sessionStorage
+            const isBanned = sessionStorage.getItem('isBanned');
+            if (isBanned === 'true') {
+                alert('Access Denied: You have been banned from this service.');
+                return;
+            }
+            
             btn.textContent = 'Redirecting...';
             btn.disabled = true;
 
