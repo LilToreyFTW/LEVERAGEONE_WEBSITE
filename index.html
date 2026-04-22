@@ -82,42 +82,82 @@
         </div>
 
         <div id="about" class="tab-content">
-            <h2>About LeverageONE</h2>
-            <p>LeverageONE is designed for gamers who demand precision and control. Our system compensates for weapon recoil in real-time, giving you the accuracy you need to dominate the competition.</p>
-            
-            <div class="about-section">
-                <h3>Core Features</h3>
-                <ul>
-                    <li><strong>Real-time Recoil Compensation</strong> - Bidirectional X/Y control with adjustable delay</li>
-                    <li><strong>Horizontal Modifier</strong> - Fine-tune horizontal recoil compensation</li>
-                    <li><strong>SMG/AR Mode Switching</strong> - Separate profiles for different weapon types</li>
-                    <li><strong>Rapid Fire Mode</strong> - Adjustable rapid fire delays for SMG and AR</li>
-                    <li><strong>Rapid Right Click</strong> - Optional right-click spamming functionality</li>
-                    <li><strong>Humanized Aim Smoothing</strong> - Makes movements feel natural and human-like</li>
-                    <li><strong>Game-Aware Detection</strong> - Auto-detects Discovery-e.exe (The Finals)</li>
-                    <li><strong>Loadout Management</strong> - Save and load custom recoil profiles</li>
-                    <li><strong>Hotkey Support</strong> - Toggle controls with INSERT, P, and SCROLL LOCK</li>
-                    <li><strong>FPS/Latency Monitoring</strong> - Real-time performance metrics</li>
-                </ul>
+            <div class="about-hero">
+                <h1>About LeverageONE</h1>
+                <p class="about-subtitle">Professional-Grade Mouse Recoil System</p>
+                <p class="about-description">LeverageONE is designed for gamers who demand precision and control. Our system compensates for weapon recoil in real-time, giving you the accuracy you need to dominate the competition.</p>
             </div>
 
-            <div class="about-section">
-                <h3>Technical Specifications</h3>
-                <ul>
-                    <li>Platform: Windows 10/11 (64-bit)</li>
-                    <li>Language: C++17/20 with Python 3.8+ GUI</li>
-                    <li>Input: Pure Win32 API SendInput for minimal latency</li>
-                    <li>Thread Safety: Atomic operations and SRWLock for concurrent access</li>
-                    <li>Architecture: External DLL with ctypes wrapper (no injection required)</li>
-                </ul>
+            <div class="features-grid">
+                <div class="feature-card premium">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Real-time Recoil Compensation</h3>
+                    <p>Bidirectional X/Y control with adjustable delay and horizontal modifier support for precise recoil control.</p>
+                </div>
+                <div class="feature-card premium">
+                    <div class="feature-icon">🔧</div>
+                    <h3>SMG/AR Mode Switching</h3>
+                    <p>Separate profiles for different weapon types with customizable rapid fire delays and settings.</p>
+                </div>
+                <div class="feature-card premium">
+                    <div class="feature-icon">🎮</div>
+                    <h3>Game-Aware Detection</h3>
+                    <p>Auto-detects Discovery-e.exe (THE FINALS) and only activates when the game window is focused.</p>
+                </div>
+                <div class="feature-card premium">
+                    <div class="feature-icon">📊</div>
+                    <h3>FPS/Latency Monitoring</h3>
+                    <p>Real-time performance metrics to help you optimize your settings for maximum efficiency.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💾</div>
+                    <h3>Loadout Management</h3>
+                    <p>Save and load custom recoil profiles for different weapons and playstyles.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⌨️</div>
+                    <h3>Hotkey Support</h3>
+                    <p>Toggle controls with INSERT, P, and SCROLL LOCK for seamless gameplay integration.</p>
+                </div>
             </div>
 
-            <div class="about-section">
-                <h3>Requirements</h3>
-                <ul>
+            <div class="tech-specs">
+                <h3>🔧 Technical Specifications</h3>
+                <div class="specs-grid">
+                    <div class="spec-item">
+                        <span class="spec-label">Platform</span>
+                        <span class="spec-value">Windows 10/11 (64-bit)</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Language</span>
+                        <span class="spec-value">C++17/20 with Python 3.8+ GUI</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Input</span>
+                        <span class="spec-value">Pure Win32 API SendInput</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Thread Safety</span>
+                        <span class="spec-value">Atomic operations + SRWLock</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Architecture</span>
+                        <span class="spec-value">External DLL (no injection)</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Latency</span>
+                        <span class="spec-value">Sub-millisecond response</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="requirements-banner">
+                <h3>📋 System Requirements</h3>
+                <ul class="requirements-list">
                     <li>Windows 10/11 (64-bit)</li>
                     <li>Administrator privileges (required for low-level mouse input)</li>
                     <li>Python 3.8+ (for source version)</li>
+                    <li>Discord account with access role (for download)</li>
                 </ul>
             </div>
         </div>

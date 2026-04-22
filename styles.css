@@ -289,6 +289,118 @@ p {
     color: #00d4ff;
 }
 
+/* About Page */
+.about-hero {
+    text-align: center;
+    padding: 50px 20px;
+    background: linear-gradient(180deg, rgba(0, 212, 255, 0.1) 0%, transparent 100%);
+    border-radius: 20px;
+    margin-bottom: 40px;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+.about-hero h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    background: linear-gradient(90deg, #00d4ff, #00ff88);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 15px;
+}
+
+.about-subtitle {
+    font-size: 1.5rem;
+    color: #00d4ff;
+    margin-bottom: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.about-description {
+    font-size: 1.1rem;
+    color: #a0a0a0;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+/* Tech Specs */
+.tech-specs {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(0, 153, 204, 0.05) 100%);
+    border: 2px solid rgba(0, 212, 255, 0.2);
+    border-radius: 15px;
+    padding: 30px;
+    margin: 40px 0;
+}
+
+.tech-specs h3 {
+    color: #00d4ff;
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+}
+
+.specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.spec-item {
+    background: rgba(0, 212, 255, 0.05);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.spec-label {
+    color: #888;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.spec-value {
+    color: #00ff88;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* Requirements Banner */
+.requirements-banner {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 255, 136, 0.1) 100%);
+    border: 2px solid rgba(0, 212, 255, 0.3);
+    border-radius: 15px;
+    padding: 30px;
+    margin: 40px 0;
+}
+
+.requirements-banner h3 {
+    color: #00ff88;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+.requirements-list {
+    list-style: none;
+    padding: 0;
+}
+
+.requirements-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.requirements-list li:last-child {
+    border-bottom: none;
+}
+
 /* CTA Section */
 .cta-section {
     text-align: center;
