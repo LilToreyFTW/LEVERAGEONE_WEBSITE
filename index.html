@@ -138,15 +138,26 @@
             <h2>Download LeverageONE</h2>
             <p>Get the latest version of LeverageONE and start dominating the competition with professional-grade recoil compensation and AI-powered target detection.</p>
             
-            <div class="download-section">
-                <a href="https://drive.proton.me/urls/KSNXJQ24RR#I8zklCFePHlZ" target="_blank" class="btn primary download-btn">Download LeverageONE</a>
-                
-                <div class="password-section">
-                    <h3>Password for Download:</h3>
-                    <div class="password-box">
-                        <code class="password-text">V4Torey</code>
+            <div id="auth-section">
+                <div class="auth-message">
+                    <h3>Discord Authentication Required</h3>
+                    <p>To access the download, you must join our Discord server and have the access role.</p>
+                    <a href="https://discord.gg/WandDv9Jgp" target="_blank" class="btn primary discord-btn">Join Discord Server</a>
+                    <button id="verify-btn" class="btn primary">Verify Discord Access</button>
+                </div>
+            </div>
+
+            <div id="download-section" style="display: none;">
+                <div class="download-section">
+                    <a href="https://drive.proton.me/urls/KSNXJQ24RR#I8zklCFePHlZ" target="_blank" class="btn primary download-btn">Download LeverageONE</a>
+                    
+                    <div class="password-section">
+                        <h3>Password for Download:</h3>
+                        <div class="password-box">
+                            <code class="password-text">V4Torey</code>
+                        </div>
+                        <p class="password-note">Use this password to unlock the downloaded file.</p>
                     </div>
-                    <p class="password-note">Use this password to unlock the downloaded file.</p>
                 </div>
             </div>
 
@@ -237,6 +248,37 @@
                 const tabId = btn.getAttribute('data-tab');
                 document.getElementById(tabId).classList.add('active');
             });
+        });
+
+        // Discord verification
+        document.getElementById('verify-btn').addEventListener('click', async () => {
+            const btn = document.getElementById('verify-btn');
+            btn.textContent = 'Verifying...';
+            btn.disabled = true;
+
+            try {
+                // Redirect to Discord OAuth2
+                window.location.href = 'http://localhost:5000/auth/discord';
+            } catch (error) {
+                btn.textContent = 'Error - Try Again';
+                btn.disabled = false;
+                console.error('Verification error:', error);
+            }
+        });
+
+        // Check if user is already verified on page load
+        window.addEventListener('load', async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/verify-session');
+                const data = await response.json();
+                
+                if (data.access) {
+                    document.getElementById('auth-section').style.display = 'none';
+                    document.getElementById('download-section').style.display = 'block';
+                }
+            } catch (error) {
+                console.log('No active session');
+            }
         });
     </script>
 </body>

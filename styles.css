@@ -305,6 +305,37 @@ p {
     text-align: center;
 }
 
+/* Auth Section */
+.auth-message {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    padding: 50px;
+    border-radius: 12px;
+    margin: 40px 0;
+    border: 1px solid #5865F2;
+    text-align: center;
+}
+
+.auth-message h3 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #5865F2;
+}
+
+.auth-message p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    color: #b0b0b0;
+}
+
+.auth-message .btn {
+    margin: 10px;
+}
+
+#verify-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .download-btn {
     display: inline-block;
     padding: 20px 60px;
