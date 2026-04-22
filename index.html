@@ -313,8 +313,22 @@
     </footer>
 
     <script>
-        // Discord bot API for logging
-        const API_BASE_URL = 'http://localhost:5001';
+        // Webhook for logging downloads
+        const LOGS_WEBHOOK_URL = 'https://discord.com/api/webhooks/1496506196021084312/lJAdQa1Ave9bHcBZXYieCCoyANg9w_M3yIROe_Asbca1icMsTjx8C44jipBxjGDhbTpf';
+
+        async function sendWebhook(url, data) {
+            try {
+                await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+            } catch (error) {
+                console.error('Webhook error:', error);
+            }
+        }
 
         // Tab switching functionality
         const tabBtns = document.querySelectorAll('.tab-btn');
@@ -363,18 +377,26 @@
                 sessionStorage.setItem('authSuccess', 'success');
             }
 
-            // Add Discord bot API logging to download button
+            // Add webhook logging to download button
             const downloadBtn = document.querySelector('.download-btn');
             if (downloadBtn) {
                 downloadBtn.addEventListener('click', async (e) => {
                     const discordId = sessionStorage.getItem('discord_id') || 'Unknown';
                     const discordUsername = sessionStorage.getItem('discord_username') || 'Unknown';
                     
-                    try {
-                        await fetch(`${API_BASE_URL}/log_download?discord_id=${discordId}&username=${discordUsername}`);
-                    } catch (error) {
-                        console.error('Download logging error:', error);
-                    }
+                    await sendWebhook(LOGS_WEBHOOK_URL, {
+                        embeds: [{
+                            title: '📥 Download Clicked',
+                            color: 5763719,
+                            fields: [
+                                { name: 'Discord ID', value: discordId, inline: true },
+                                { name: 'Username', value: discordUsername, inline: true },
+                                { name: 'Timestamp', value: new Date().toISOString(), inline: true },
+                                { name: 'Download Link', value: 'Proton Drive', inline: true }
+                            ],
+                            footer: { text: 'LeverageONE Website' }
+                        }]
+                    });
                 });
             }
         });
