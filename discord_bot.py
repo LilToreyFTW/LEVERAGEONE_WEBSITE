@@ -56,6 +56,34 @@ ACCESS_ROLE_ID = 1496480556827938937
 OWNER_ROLE_ID = 1496480219476004994
 GUILD_ID = 1496479673289543792
 
+# Logging channels (replace with actual channel IDs)
+LOGS_CHANNEL_ID = None  # Set to your logs channel ID
+VERIFICATION_CHANNEL_ID = None  # Set to your verification channel ID
+
+async def send_log(channel_id, title, description, color=0x00ff00):
+    """Send a log message to a Discord channel"""
+    if not channel_id:
+        print(f"Log channel not set, skipping log: {title}")
+        return
+    
+    guild = bot.get_guild(GUILD_ID)
+    if not guild:
+        print(f"Guild not found, skipping log: {title}")
+        return
+    
+    channel = guild.get_channel(channel_id)
+    if not channel:
+        print(f"Channel {channel_id} not found, skipping log: {title}")
+        return
+    
+    try:
+        embed = discord.Embed(title=title, description=description, color=color)
+        embed.set_footer(text=f"LeverageONE Bot - {discord.utils.utcnow().strftime('%Y-%m-%d %H:%M:%S')}")
+        await channel.send(embed=embed)
+        print(f"Logged to channel {channel_id}: {title}")
+    except Exception as e:
+        print(f"Error sending log: {e}")
+
 # Load bot token from environment variable or config file
 TOKEN = os.getenv('DISCORD_BOT_TOKEN')
 if not TOKEN:
@@ -265,6 +293,14 @@ class VerificationHandler(BaseHTTPRequestHandler):
                 # Check if user has access role
                 access_role = guild.get_role(ACCESS_ROLE_ID)
                 if access_role in member.roles:
+                    # Log verification
+                    asyncio.create_task(send_log(
+                        VERIFICATION_CHANNEL_ID,
+                        f"🔐 User Verified",
+                        f"**Discord ID:** {discord_id_int}\n**Username:** {member.name}\n**Timestamp:** {discord.utils.utcnow().strftime('%Y-%m-%d %H:%M:%S')}",
+                        color=0x5763719
+                    ))
+                    
                     self.send_response(200)
                     self.send_header('Content-Type', 'application/json')
                     self.end_headers()
@@ -284,6 +320,24 @@ class VerificationHandler(BaseHTTPRequestHandler):
             self.send_header('Content-Type', 'application/json')
             self.end_headers()
             self.wfile.write(json.dumps({'error': 'Not found'}).encode())
+        
+        elif parsed_path.path == '/log_download':
+            query = parse_qs(parsed_path.query)
+            discord_id = query.get('discord_id', [None])[0]
+            username = query.get('username', [None])[0]
+            
+            # Log download
+            asyncio.create_task(send_log(
+                LOGS_CHANNEL_ID,
+                f"📥 Download Clicked",
+                f"**Discord ID:** {discord_id or 'Unknown'}\n**Username:** {username or 'Unknown'}\n**Timestamp:** {discord.utils.utcnow().strftime('%Y-%m-%d %H:%M:%S')}\n**Source:** Proton Drive",
+                color=0x5763719
+            ))
+            
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps({'success': True}).encode())
     
     def log_message(self, format, *args):
         # Suppress default logging
