@@ -258,7 +258,7 @@
 
             try {
                 // Redirect to Discord OAuth2
-                window.location.href = 'http://localhost:5000/auth/discord';
+                window.location.href = 'https://leverageone-website.vercel.app/auth/discord';
             } catch (error) {
                 btn.textContent = 'Error - Try Again';
                 btn.disabled = false;
@@ -269,7 +269,7 @@
         // Check if user is already verified on page load
         window.addEventListener('load', async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/verify-session');
+                const response = await fetch('https://leverageone-website.vercel.app/api/verify-session');
                 const data = await response.json();
                 
                 if (data.access) {

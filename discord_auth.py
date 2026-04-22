@@ -20,7 +20,7 @@ if not CLIENT_SECRET:
         print("Error: Client secret not found. Set DISCORD_CLIENT_SECRET environment variable or create config.txt")
         exit(1)
 
-REDIRECT_URI = "http://localhost:5000/callback"
+REDIRECT_URI = "https://leverageone-website.vercel.app/callback"
 DISCORD_API_URL = "https://discord.com/api/v10"
 GUILD_ID = "1496479673289543792"
 ACCESS_ROLE_ID = "1496480556827938937"
