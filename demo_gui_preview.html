@@ -395,6 +395,7 @@
                 <button class="tab active" data-tab="leverageone">LeverageONE</button>
                 <button class="tab" data-tab="finals">FINALs</button>
                 <button class="tab" data-tab="thefinals">THE FINALS</button>
+                <button class="tab" data-tab="arc">ARC</button>
             </div>
 
             <!-- LeverageONE Tab Content -->
@@ -814,6 +815,153 @@
                     <div class="switch">
                         <span class="switch-label">Enable Rapid Fire</span>
                         <div class="toggle active"></div>
+                    </div>
+                </div>
+
+                <!-- Loadout Manager -->
+                <div class="section">
+                    <h3>Loadout Manager</h3>
+                    <div class="loadout-row">
+                        <select class="loadout-select">
+                            <option>Select Loadout...</option>
+                        </select>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn secondary">Save</button>
+                        <button class="btn secondary">Load</button>
+                        <button class="btn secondary">Delete</button>
+                    </div>
+                </div>
+
+                <!-- Control Buttons -->
+                <div class="section">
+                    <button class="btn">ENABLE</button>
+                    <button class="btn secondary">Test Recoil</button>
+                    <button class="btn secondary">Exit</button>
+                </div>
+            </div>
+
+            <!-- ARC Tab Content -->
+            <div class="tab-content" id="arc">
+                <!-- Game Connection Status -->
+                <div class="game-status">
+                    <h3>Game Connection Status</h3>
+                    <div class="status-label">❌ PioneerGame.exe not found — Launch ARC first</div>
+                    <div class="window-info">Window: N/A</div>
+                    <div class="button-row">
+                        <button class="small-btn">Focus Game Window</button>
+                        <button class="small-btn">Refresh Detection</button>
+                    </div>
+                    <div class="checkbox-row">
+                        <div class="switch">
+                            <span class="switch-label" style="font-size: 10px;">Auto-Focus on Tab Switch</span>
+                            <div class="toggle active"></div>
+                        </div>
+                        <div class="switch">
+                            <span class="switch-label" style="font-size: 10px;">Only Activate When Game is Foreground</span>
+                            <div class="toggle active"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Humanized Aim Smoothing -->
+                <div class="smoothing-section">
+                    <h3>Humanized Aim Smoothing</h3>
+                    <div class="switch">
+                        <span class="switch-label">Enable Aim Smoothing</span>
+                        <div class="toggle"></div>
+                    </div>
+                    <div class="control-row" style="margin-top: 15px;">
+                        <span class="label">Smoothing Strength</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="0" max="100" value="74">
+                        </div>
+                        <input type="text" class="entry" value="74">
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Humanization</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="0" max="50" value="10">
+                        </div>
+                        <input type="text" class="entry" value="10">
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Curve Factor</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="0" max="20" value="7">
+                        </div>
+                        <input type="text" class="entry" value="7">
+                    </div>
+                </div>
+
+                <div class="separator"></div>
+
+                <!-- Recoil Tuning -->
+                <div class="section">
+                    <h3>Recoil Tuning</h3>
+                    <div class="control-row">
+                        <span class="label">X Control</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="0" max="20" value="0">
+                        </div>
+                        <input type="text" class="entry" value="0">
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Y Control</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="0" max="50" value="8">
+                        </div>
+                        <input type="text" class="entry" value="8">
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Delay (ms)</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="1" max="20" value="7">
+                        </div>
+                        <input type="text" class="entry" value="7">
+                    </div>
+                    <div class="control-row">
+                        <span class="label">Horizontal Modifier</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="-10" max="10" value="0">
+                        </div>
+                        <input type="text" class="entry" value="0">
+                    </div>
+                </div>
+
+                <!-- Weapon Mode -->
+                <div class="section">
+                    <h3>Weapon Mode</h3>
+                    <div class="switch">
+                        <span class="switch-label">SMG Mode</span>
+                        <div class="toggle active"></div>
+                    </div>
+                </div>
+
+                <!-- Rapid Fire -->
+                <div class="section">
+                    <h3>Rapid Fire</h3>
+                    <div class="switch">
+                        <span class="switch-label">Enable Rapid Fire</span>
+                        <div class="toggle active"></div>
+                    </div>
+                    <div class="switch">
+                        <span class="switch-label">Enable Rapid Right Click</span>
+                        <div class="toggle"></div>
+                    </div>
+                    <div class="control-row" style="margin-top: 15px;">
+                        <span class="label">SMG Rapid Delay (ms)</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="10" max="200" value="80">
+                        </div>
+                        <input type="text" class="entry" value="80">
+                    </div>
+                    <div class="control-row">
+                        <span class="label">AR Rapid Delay (ms)</span>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="10" max="200" value="110">
+                        </div>
+                        <input type="text" class="entry" value="110">
                     </div>
                 </div>
 
